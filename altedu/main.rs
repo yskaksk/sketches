@@ -7,7 +7,7 @@ fn main() {
 
 struct Model {
     current: Point2,
-    old: Point2
+    old: Point2,
 }
 
 fn update(_: &App, model: &mut Model, _: Update) {
@@ -25,7 +25,7 @@ fn model(app: &App) -> Model {
         .unwrap();
     Model {
         current: Point2::new(250.0, 0.0),
-        old: Point2::new(250.0, 0.0)
+        old: Point2::new(250.0, 0.0),
     }
 }
 
@@ -46,7 +46,7 @@ fn choose(current: &Point2) -> Point2 {
     } else {
         (rad - f32::consts::PI / 2.0, 3.0)
     };
-    return Point2::new(current.x + d * theta.cos(), current.y + d * theta.sin())
+    return Point2::new(current.x + d * theta.cos(), current.y + d * theta.sin());
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
@@ -54,8 +54,6 @@ fn view(app: &App, model: &Model, frame: Frame) {
     if frame.nth() == 0 {
         draw.background().color(WHITE);
     }
-    draw.line()
-        .start(model.old)
-        .end(model.current);
+    draw.line().start(model.old).end(model.current);
     draw.to_frame(app, &frame).unwrap();
 }
