@@ -1,6 +1,6 @@
 use nannou::{
+    noise::{NoiseFn, Perlin},
     prelude::*,
-    noise::{NoiseFn, Perlin}
 };
 
 fn main() {
@@ -40,5 +40,3 @@ fn view(app: &App, frame: Frame) {
     }
     draw.to_frame(app, &frame).unwrap();
 }
-
-
