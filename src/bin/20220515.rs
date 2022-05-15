@@ -39,4 +39,9 @@ fn view(app: &App, frame: Frame) {
         }
     }
     draw.to_frame(app, &frame).unwrap();
+    if app.keys.down.contains(&Key::S) {
+        let path = format!("output/{}.png", app.exe_name().unwrap());
+        app.main_window().capture_frame(&path);
+        println!("file: {} saved!", path);
+    }
 }
