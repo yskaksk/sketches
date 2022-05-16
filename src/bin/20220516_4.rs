@@ -7,15 +7,12 @@ fn main() {
 
 struct Model {
     x: f32,
-    y: f32
+    y: f32,
 }
 
 fn model(app: &App) -> Model {
     app.new_window().view(view).size(600, 600).build().unwrap();
-    Model {
-        x: 0.0,
-        y: 0.0
-    }
+    Model { x: 0.0, y: 0.0 }
 }
 
 fn update(app: &App, model: &mut Model, _: Update) {

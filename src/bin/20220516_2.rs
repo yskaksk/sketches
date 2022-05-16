@@ -1,6 +1,5 @@
 use nannou::prelude::*;
 
-
 fn main() {
     nannou::sketch(view).size(600, 600).run()
 }
@@ -20,9 +19,12 @@ fn view(app: &App, frame: Frame) {
         for j in 0..=ycount {
             let x = map_range(i, 0, xcount, win.left(), win.right());
             let y = map_range(j, 0, ycount, win.bottom(), win.top());
-            draw.rect().x_y(x, y).w_h(w_d, h_d).color(hsv(map_range(x, win.left(), win.right(), 0.0, 1.0), map_range(y, win.bottom(), win.top(), 0.0, 1.0), 1.0));
+            draw.rect().x_y(x, y).w_h(w_d, h_d).color(hsv(
+                map_range(x, win.left(), win.right(), 0.0, 1.0),
+                map_range(y, win.bottom(), win.top(), 0.0, 1.0),
+                1.0,
+            ));
         }
     }
     draw.to_frame(app, &frame).unwrap();
 }
-
