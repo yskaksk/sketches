@@ -5,16 +5,13 @@ fn main() {
 }
 
 struct Model {
-    points: Vec<Point2>
+    points: Vec<Point2>,
 }
 
-const N : usize = 60;
+const N: usize = 60;
 
 fn model(app: &App) -> Model {
-    app.new_window()
-        .size(720, 720)
-        .build()
-        .unwrap();
+    app.new_window().size(720, 720).build().unwrap();
     let points = (0..=N).map(|i| {
         let theta = i as f32 * 2.0 * f32::PI() / N as f32;
         let x = 200.0 * theta.cos();
@@ -22,7 +19,7 @@ fn model(app: &App) -> Model {
         pt2(x, y)
     });
     Model {
-        points: Vec::from_iter(points)
+        points: Vec::from_iter(points),
     }
 }
 
@@ -32,7 +29,10 @@ fn view(app: &App, model: &Model, frame: Frame) {
         draw.background().color(WHITE);
     }
     if frame.nth() < 600 {
-        draw.polyline().weight(3.0).points(model.points.clone()).color(rgba(0.5, 0.5, 0.5, 0.01));
+        draw.polyline()
+            .weight(3.0)
+            .points(model.points.clone())
+            .color(rgba(0.5, 0.5, 0.5, 0.01));
         draw.to_frame(app, &frame).unwrap();
     }
 }

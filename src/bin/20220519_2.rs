@@ -1,31 +1,30 @@
-use nannou::prelude::*;
 use itertools::Itertools;
+use nannou::prelude::*;
 
 fn main() {
     nannou::app(model).view(view).update(update).run()
 }
 
-const N : usize = 120;
+const N: usize = 120;
 
 struct Model {
-    squares: Vec<Vec<Point2>>
+    squares: Vec<Vec<Point2>>,
 }
 
 fn model(app: &App) -> Model {
     let d = 720;
-    app.new_window()
-        .size(d, d)
-        .build()
-        .unwrap();
+    app.new_window().size(d, d).build().unwrap();
     let win = app.window_rect();
     let delta = d as f32 / 64.0;
     let squares = (0..4).rev().cartesian_product(0..4).map(|(i, j)| {
-        let x = (d as f32 / 4.0) * j as f32 + d  as f32 / 8.0 - win.w() / 2.0 + random_range(-delta, delta);
-        let y = (d as f32 / 4.0) * i as f32 + d  as f32 / 8.0 - win.h() / 2.0 + random_range(-delta, delta);
+        let x = (d as f32 / 4.0) * j as f32 + d as f32 / 8.0 - win.w() / 2.0
+            + random_range(-delta, delta);
+        let y = (d as f32 / 4.0) * i as f32 + d as f32 / 8.0 - win.h() / 2.0
+            + random_range(-delta, delta);
         Vec::from_iter(square_points(pt2(x, y), win.w() / 8.0, N, 0.0))
     });
     Model {
-        squares: Vec::from_iter(squares)
+        squares: Vec::from_iter(squares),
     }
 }
 
@@ -81,7 +80,10 @@ fn square_points(center: Point2, diameter: f32, npoints: usize, round: f32) -> V
             pt2(x, y)
         };
         let theta = f32::PI() / 4.0 + round;
-        pt2(center.x + p.x * theta.cos() - p.y * theta.sin(), center.y + p.x * theta.sin() + p.y * theta.cos())
+        pt2(
+            center.x + p.x * theta.cos() - p.y * theta.sin(),
+            center.y + p.x * theta.sin() + p.y * theta.cos(),
+        )
     });
-    return Vec::from_iter(points)
+    return Vec::from_iter(points);
 }
