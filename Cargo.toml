@@ -8,6 +8,8 @@ edition = "2021"
 [dependencies]
 nannou = "0.18"
 itertools = "0.10"
+kd-tree = "0.4"
+typenum = "1.14"
 
 [[example]]
 name = "altedu"
