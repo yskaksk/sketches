@@ -6,6 +6,8 @@
 
 ![](./gallery/20220519_2.png)
 
+![](./gallery/20220524.png)
+
 ## Gifの作り方
 
 ```bash
