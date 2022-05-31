@@ -6,19 +6,15 @@ fn main() {
 
 struct Dot {
     loc: Point2,
-    direction: f32
+    direction: f32,
 }
 
 struct Model {
-    points: Vec<Dot>
+    points: Vec<Dot>,
 }
 
 fn model(app: &App) -> Model {
-    app.new_window()
-        .view(view)
-        .size(720, 720)
-        .build()
-        .unwrap();
+    app.new_window().view(view).size(720, 720).build().unwrap();
     let win = app.window_rect();
     let npoints = 100;
     let points = Vec::from_iter((0..npoints).map(|i| {
@@ -27,12 +23,10 @@ fn model(app: &App) -> Model {
         let r = 0.0;
         Dot {
             loc: pt2(x, y),
-            direction: r
+            direction: r,
         }
     }));
-    Model {
-        points
-    }
+    Model { points }
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
