@@ -16,15 +16,25 @@ fn view(app: &App, frame: Frame) {
         let nsplit = 4;
         for i in 0..nsplit {
             for j in 0..nsplit {
+                let n = (i + (nsplit - j) * nsplit) * 5;
                 let x = win.left() + w / (2.0 * nsplit as f32) + (i as f32) * w / (nsplit as f32);
                 let y = win.bottom() + h / (2.0 * nsplit as f32) + (j as f32) * h / (nsplit as f32);
                 if i == 1 && j == 1 {
-                    draw_square_3(&draw, pt2(x, y), w / (nsplit as f32), c2);
+                    draw_square_3(&draw, pt2(x, y), 0.9 * w / (nsplit as f32), c2, n);
                 } else {
-                    draw_square_3(&draw, pt2(x, y), w / (nsplit as f32), c1);
+                    draw_square_3(&draw, pt2(x, y), 0.9 * w / (nsplit as f32), c1, n);
                 }
             }
         }
+    }
+    if frame.nth() < 300 {
+        let path = format!(
+            "output/{}/image_{:>03}.png",
+            app.exe_name().unwrap(),
+            frame.nth()
+        );
+        app.main_window().capture_frame(path);
+        println!("saving {:>03}", frame.nth());
     }
     draw.to_frame(app, &frame).unwrap();
 }
@@ -57,13 +67,13 @@ fn draw_square_2(draw: &Draw, loc: Point2, size: f32) {
     }
 }
 
-fn draw_square_3(draw: &Draw, loc: Point2, size: f32, color: Rgba) {
+fn draw_square_3(draw: &Draw, loc: Point2, size: f32, color: Rgba, n: usize) {
     let center = loc;
     let left = loc.x - size / 2.0;
     let right = loc.x + size / 2.0;
     let top = loc.y + size / 2.0;
     let bottom = loc.y - size / 2.0;
-    for i in 0..100 {
+    for i in 0..n {
         let x = random_range(center.x - size / 2.0, center.x + size / 2.0);
         let y = random_range(center.y - size / 2.0, center.y + size / 2.0);
         let r = vec![x - left, right - x, top - y, y - bottom]
@@ -71,7 +81,6 @@ fn draw_square_3(draw: &Draw, loc: Point2, size: f32, color: Rgba) {
             .fold(0.0 / 0.0, |m, v| v.min(m))
             .min(size / 5.0);
         let c = if i % 2 == 0 {
-            //rgba(0.0, 0.9, 0.2, 1.0)
             color
         } else {
             rgba(0.2, 0.1, 0.1, 1.0)
