@@ -7,7 +7,7 @@ fn main() {
 
 struct Dot {
     loc: Point2,
-    direction: f32
+    direction: f32,
 }
 
 struct Model {
@@ -31,12 +31,12 @@ fn model(app: &App) -> Model {
         let r = 0.0;
         Dot {
             loc: pt2(x, y),
-            direction: r
+            direction: r,
         }
     }));
     Model {
         points,
-        texture: img
+        texture: img,
     }
 }
 
@@ -47,7 +47,10 @@ fn view(app: &App, model: &Model, frame: Frame) {
     }
     for (_i, p) in model.points.iter().enumerate() {
         let c = rgba(0.0, 0.1, 0.1, 0.01);
-        draw.ellipse().x_y(p.loc.x, p.loc.y).w_h(10.0, 10.0).color(c);
+        draw.ellipse()
+            .x_y(p.loc.x, p.loc.y)
+            .w_h(10.0, 10.0)
+            .color(c);
     }
     draw.to_frame(app, &frame).unwrap();
 }
@@ -58,10 +61,11 @@ fn update(app: &App, model: &mut Model, _: Update) {
     let width = model.texture.width();
     let height = model.texture.height();
     for p in model.points.iter_mut() {
-        let i = map_range(p.loc.x, win.left(), win.right(), 0, width-1);
-        let j = map_range(p.loc.y, win.top(), win.bottom(), 0, height-1);
+        let i = map_range(p.loc.x, win.left(), win.right(), 0, width - 1);
+        let j = map_range(p.loc.y, win.top(), win.bottom(), 0, height - 1);
         let pixel = model.texture.get_pixel(i, j);
-        let gray = (pixel[0] as f32 * 0.222 + pixel[1] as f32 * 0.707 + pixel[2] as f32 * 0.071) / 256.0;
+        let gray =
+            (pixel[0] as f32 * 0.222 + pixel[1] as f32 * 0.707 + pixel[2] as f32 * 0.071) / 256.0;
         let rrange = (gray + 0.01) * rrange_max;
         p.direction += random_range(-rrange, rrange);
         if p.direction < -rrange_max {
