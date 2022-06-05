@@ -18,8 +18,14 @@
 
 ![](./gallery/20220531.gif)
 
+### 2022/06/05
+
+![](./gallery/20220605_2.gif)
+
 ## Gifの作り方
 
 ```bash
-$ ffmpeg -r 30 -i image_%03d.png output.gif
+$ ffmpeg -i image_%03d.png -filter_complex "[0:v] fps=5,scale=1000:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse" output.gif
 ```
+
+* `scale=1000:-1` はwidthを1000pxにして、heightはアスペクト比率を維持する
