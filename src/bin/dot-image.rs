@@ -11,7 +11,7 @@ struct Model {
 
 fn model(app: &App) -> Model {
     let assets = app.assets_path().unwrap();
-    let img = open(assets.join("jidori2.jpg")).unwrap().into_rgb8();
+    let img = open(assets.join("Dali_square.jpg")).unwrap().into_rgb8();
     app.new_window()
         .view(view)
         .size(img.width(), img.height())
