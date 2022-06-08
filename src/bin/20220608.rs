@@ -32,7 +32,7 @@ fn draw_shape(draw: &Draw, loc: Point2, size: f32) {
     let c = rgb8(163, 114, 42);
     for i in 0..n {
         if i == 0 || random::<f32>() > 0.03 {
-            let d = map_range(i, 0, n-1, size, 20.0);
+            let d = map_range(i, 0, n - 1, size, 20.0);
             let r = d * 0.5 * 2.0.sqrt();
             if random::<f32>() > 0.03 {
                 let points = Vec::from_iter((0..=4).map(|i| {
@@ -41,15 +41,26 @@ fn draw_shape(draw: &Draw, loc: Point2, size: f32) {
                     let y = r * theta.sin();
                     pt2(x, y)
                 }));
-                draw.x_y(loc.x, loc.y).rotate(f32::PI() / 4.0).polyline().weight(3.0).points(points).color(c);
+                draw.x_y(loc.x, loc.y)
+                    .rotate(f32::PI() / 4.0)
+                    .polyline()
+                    .weight(3.0)
+                    .points(points)
+                    .color(c);
             } else {
                 for i in 0..4 {
                     let points = Vec::from_iter((0..=90).map(|i| {
-                        let x = map_range(i % 90, 0, 89, r, 0.0) + random_range(-d*0.01, d*0.01);
-                        let y = r - x + random_range(-d*0.01, d*0.01);
+                        let x =
+                            map_range(i % 90, 0, 89, r, 0.0) + random_range(-d * 0.01, d * 0.01);
+                        let y = r - x + random_range(-d * 0.01, d * 0.01);
                         pt2(x, y)
                     }));
-                    draw.x_y(loc.x, loc.y).rotate(f32::PI() / 4.0 + f32::PI() * 0.5 * i as f32).polyline().weight(4.0).points(points).color(GREEN);
+                    draw.x_y(loc.x, loc.y)
+                        .rotate(f32::PI() / 4.0 + f32::PI() * 0.5 * i as f32)
+                        .polyline()
+                        .weight(4.0)
+                        .points(points)
+                        .color(GREEN);
                 }
             }
         }
