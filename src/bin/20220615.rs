@@ -67,6 +67,11 @@ fn view(app: &App, model: &Model, frame: Frame) {
         }
     }
     draw.to_frame(app, &frame).unwrap();
+    if app.keys.down.contains(&Key::S) {
+        let path = format!("output/{}/image.png", app.exe_name().unwrap());
+        app.main_window().capture_frame(&path);
+        println!("file: {} saved!", path);
+    }
 }
 
 fn update(_: &App, model: &mut Model, _: Update) {
