@@ -11,7 +11,7 @@ struct Model {
 
 fn model(app: &App) -> Model {
     let assets = app.assets_path().unwrap();
-    let img = open(assets.join("Dali_square.jpg")).unwrap().into_rgb8();
+    let img = open(assets.join("jidori_sq.png")).unwrap().into_rgb8();
     app.new_window()
         .view(view)
         .size(img.width(), img.height())
@@ -40,19 +40,22 @@ fn view(app: &App, model: &Model, frame: Frame) {
                     (p[0] as f32 * 0.222 + p[1] as f32 * 0.707 + p[2] as f32 * 0.071) / 256.0;
                 let x = map_range(i, 0, w, win.left(), win.right());
                 let y = map_range(j, h, 0, win.bottom(), win.top());
-                if gray > 0.5 {
-                    let c = rgba(p[0], p[1], p[2], 200);
-                    draw.rect().x_y(x, y).w_h(15.0, 15.0).color(c);
-                } else {
-                    let r = 10.0;
-                    let c = rgba(p[0], p[1], p[2], 100);
-                    let th = random_f32();
-                    if th > 0.5 {
-                        draw.rect().x_y(x, y).w_h(r, 10.0 * r).color(c);
-                    } else {
-                        draw.rect().x_y(x, y).w_h(10.0 * r, r).color(c);
-                    }
-                }
+                let a = 255 - ((x*x + y*y).cos() * (x*x + y*y).sqrt()).min(255.0).max(0.0).ceil() as u8;
+                let c = rgba(p[0], p[1], p[2], a);
+                draw.rect().x_y(x, y).w_h(10.0, 10.0).color(c);
+                //if gray > 0.5 {
+                //    let c = rgba(p[0], p[1], p[2], 200);
+                //    draw.rect().x_y(x, y).w_h(15.0, 15.0).color(c);
+                //} else {
+                //    let r = 10.0;
+                //    let c = rgba(p[0], p[1], p[2], 100);
+                //    let th = random_f32();
+                //    if th > 0.5 {
+                //        draw.rect().x_y(x, y).w_h(r, 10.0 * r).color(c);
+                //    } else {
+                //        draw.rect().x_y(x, y).w_h(10.0 * r, r).color(c);
+                //    }
+                //}
             }
         }
     }
