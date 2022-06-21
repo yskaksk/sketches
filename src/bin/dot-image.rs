@@ -40,7 +40,11 @@ fn view(app: &App, model: &Model, frame: Frame) {
                     (p[0] as f32 * 0.222 + p[1] as f32 * 0.707 + p[2] as f32 * 0.071) / 256.0;
                 let x = map_range(i, 0, w, win.left(), win.right());
                 let y = map_range(j, h, 0, win.bottom(), win.top());
-                let a = 255 - ((x*x + y*y).cos() * (x*x + y*y).sqrt()).min(255.0).max(0.0).ceil() as u8;
+                let a = 255
+                    - ((x * x + y * y).cos() * (x * x + y * y).sqrt())
+                        .min(255.0)
+                        .max(0.0)
+                        .ceil() as u8;
                 let c = rgba(p[0], p[1], p[2], a);
                 draw.rect().x_y(x, y).w_h(10.0, 10.0).color(c);
                 //if gray > 0.5 {

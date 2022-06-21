@@ -38,9 +38,7 @@ fn view(app: &App, frame: Frame) {
         }
     }
     let ave: f32 = total.iter().sum::<f32>() / (n * n) as f32;
-    let std: f32 = total.iter().fold(0.0, |std, a| {
-        (a - ave).powf(2.0) + std
-    }) / (n * n) as f32;
+    let std: f32 = total.iter().fold(0.0, |std, a| (a - ave).powf(2.0) + std) / (n * n) as f32;
     println!("ave: {}, std: {}", ave, std);
 
     draw.to_frame(app, &frame).unwrap();
