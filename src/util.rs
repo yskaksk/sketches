@@ -19,6 +19,12 @@ pub fn map_range_win(win: Rect<f32>, i: usize, j: usize, n: usize) -> Point2 {
     )
 }
 
+pub fn random_from_circle() -> Point2 {
+    let theta = 2.0 * f32::PI() * random::<f32>();
+    let r = random::<f32>().sqrt();
+    return pt2(r * theta.cos(), r * theta.sin());
+}
+
 pub fn gif_save_path(app: &App, count: usize) -> String {
     format!("output/{}/image_{:>03}.png", app.exe_name().unwrap(), count)
 }
