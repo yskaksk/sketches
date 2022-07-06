@@ -8,4 +8,9 @@ fn view(app: &App, model: &Model, frame: Frame) {
         app.main_window().capture_frame(&path);
         println!("file: {} saved!", path);
     }
+    // gif
+    if frame.nth() < 300 {
+        let path = gif_save_path(app, frame.nth() as usize);
+        app.main_window().capture_frame(&path);
+    }
 }
