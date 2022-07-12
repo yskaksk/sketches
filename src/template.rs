@@ -14,3 +14,16 @@ fn view(app: &App, model: &Model, frame: Frame) {
         app.main_window().capture_frame(&path);
     }
 }
+
+fn choose_color() -> Rgb<Srgb, u8> {
+    let colors = [
+        DARKRED,
+        CADETBLUE,
+        DARKBLUE,
+        DARKOLIVEGREEN,
+        DODGERBLUE,
+        LIGHTSALMON,
+        TOMATO,
+    ];
+    colors[nannou::rand::thread_rng().gen_range(0..colors.len())]
+}
