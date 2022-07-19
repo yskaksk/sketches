@@ -47,3 +47,15 @@ pub fn cyclical_rect(loc: Point2, win: Rect<f32>) -> Point2 {
         cyclical_geom(loc.y, win.bottom(), win.top()),
     );
 }
+
+pub fn curve_vertex(draw: &Draw, p0: Point2, p1: Point2, p2: Point2, p3: Point2) {
+    let a4 = p1;
+    let a3 = (p2 - p0) / 2.0;
+    let a1 = (p3 - p1) / 2.0 - 2.0 * p2 + a3 + 2.0 * a4;
+    let a2 = 3.0 * p2 - (p3 - p1) / 2.0 - 2.0 * a3 - 3.0 * a4;
+    let points = Vec::from_iter((0..=100).map(|i| {
+        let t = map_range(i, 0, 100, 0.0, 1.0);
+        a1 * t.powi(3) + a2 * t.powi(2) + a3 * t + a4
+    }));
+    draw.polyline().points(points);
+}

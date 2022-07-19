@@ -15,3 +15,7 @@ typenum = "1.14"
 [[example]]
 name = "altedu"
 path = "altedu/main.rs"
+
+[[example]]
+name = "convex_vertex"
+path = "examples/curve_vertex.rs"
