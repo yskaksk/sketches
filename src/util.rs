@@ -59,3 +59,15 @@ pub fn curve_vertex(draw: &Draw, p0: Point2, p1: Point2, p2: Point2, p3: Point2)
     }));
     draw.polyline().points(points);
 }
+
+pub fn curve(draw: &Draw, points: Vec<Point2>) {
+    assert!(points.len() >= 4, "at least 4 points needed");
+    let mut p = points.clone();
+    let head = points[0].clone();
+    let tail = points[points.len() - 1].clone();
+    p.insert(0, head);
+    p.push(tail);
+    for pp in p.windows(4) {
+        curve_vertex(draw, pp[0], pp[1], pp[2], pp[3]);
+    }
+}

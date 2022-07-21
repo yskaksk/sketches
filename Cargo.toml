@@ -19,3 +19,7 @@ path = "altedu/main.rs"
 [[example]]
 name = "convex_vertex"
 path = "examples/curve_vertex.rs"
+
+[[example]]
+name = "curve"
+path = "examples/curve.rs"
