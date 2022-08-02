@@ -23,3 +23,7 @@ path = "examples/curve_vertex.rs"
 [[example]]
 name = "curve"
 path = "examples/curve.rs"
+
+[[example]]
+name = "scribble_line"
+path = "examples/scribble_line.rs"

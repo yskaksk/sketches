@@ -71,3 +71,75 @@ pub fn curve(draw: &Draw, points: Vec<Point2>) {
         curve_vertex(draw, pp[0], pp[1], pp[2], pp[3]);
     }
 }
+
+pub fn scribble_line(draw: &Draw, start: Point2, end: Point2) {
+    let bowing = 1.0;
+    let max_offset = 2.0;
+
+    let lin_sq = start.distance_squared(end);
+    let offset = (lin_sq.sqrt() / 10.0).min(max_offset);
+
+    let half_offset = offset / 2.0;
+    let diverge_point = random_range(0.2, 0.4);
+
+    let _mid_disp_x = bowing * (end.y - start.y) / 200.0;
+    let _mid_disp_y = bowing * (start.x - end.x) / 200.0;
+    let mid_disp_x = get_offset(-_mid_disp_x, _mid_disp_x);
+    let mid_disp_y = get_offset(-_mid_disp_y, _mid_disp_y);
+    draw_scribble_line(
+        draw,
+        start,
+        end,
+        offset,
+        mid_disp_x,
+        mid_disp_y,
+        diverge_point,
+    );
+    draw_scribble_line(
+        draw,
+        start,
+        end,
+        half_offset,
+        mid_disp_x,
+        mid_disp_y,
+        diverge_point,
+    );
+}
+
+fn draw_scribble_line(
+    draw: &Draw,
+    start: Point2,
+    end: Point2,
+    offset: f32,
+    mid_disp_x: f32,
+    mid_disp_y: f32,
+    diverge_point: f32,
+) {
+    let p1 = pt2(
+        start.x + get_offset(-offset, offset),
+        start.y + get_offset(-offset, offset),
+    );
+    let p2 = pt2(
+        mid_disp_x + start.x + (end.x - start.x) * diverge_point + get_offset(-offset, offset),
+        mid_disp_y + start.y + (end.y - start.y) * diverge_point + get_offset(-offset, offset),
+    );
+    let p3 = pt2(
+        mid_disp_x
+            + start.x
+            + 2.0 * (end.x - start.x) * diverge_point
+            + get_offset(-offset, offset),
+        mid_disp_y
+            + start.y
+            + 2.0 * (end.y - start.y) * diverge_point
+            + get_offset(-offset, offset),
+    );
+    let p4 = pt2(
+        end.x + get_offset(-offset, offset),
+        end.y + get_offset(-offset, offset),
+    );
+    curve(draw, vec![p1, p2, p3, p4]);
+}
+
+fn get_offset(min_val: f32, max_val: f32) -> f32 {
+    return random::<f32>() * (max_val - min_val) + min_val
+}
